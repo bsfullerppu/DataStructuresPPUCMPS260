@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>CMPS 260: Module 1 Homework</title>
+    <style>
+      * {
+        font-family: monospace;
+      }
+    </style>
+    <script>
+      // NOTE: You can enter both code and explanations. For an explanation, start
+      //       the line with '//' which indicates a comment.
+
+      // NOTE: console.log prints text to the browser console that you can enable
+      //       to see the output. It is a little bit more convenient than alert so
+      //       we will use it most of the time.
+
+      // NOTE: Please review the following links regularly:
+      //       https://appliedcomputerscience.org/arrays-vs-objects
+      //       https://appliedcomputerscience.org/no-prototype-vs-prototype
+      //       https://appliedcomputerscience.org/implementation-vs-interface
+
+      //----------------------------//
+      // Setting up the environment //
+      //----------------------------//
+      console.log("Setting up the environment");
+
+      // 1. When you are done copy this file to your jail and submit the link through Schoology.
+
+      //-------------------//
+      // JavaScript basics //
+      //-------------------//
+      console.log("JavaScript basics");
+      console.log(1 & 8);
+      // 1. Figure out what the << operator does. HINT: it is related to &.
+      // ... type your answer here and include an example ...
+      /*
+            The & operator is similar to an if/else block in that it acts like a boolean, meaning it is either
+            yes or no, or in this case a 1 or a 0. What & does is looks at the binary values of two
+            decimal numbers, and where they both have 1s, will leave the one. However, if one has a 0, and the other a 1,
+            the binary place is changed to 0. The << operator, however, takes the number to the right, and shifts the first
+            binary digit the number to the right places to the left, thus resulting in an entirely different number.
+            */
+      console.log(100 << 4);
+      /*
+            100 is represented in binary as 01100100, and 100 is converted to 1,600, because 1,600 is 01100100000.
+            The first binary digit going right to left is 0, and it is moved 4 places to the left, and 0s fill
+            each one of those four places.
+            */
+      //--------------------//
+      // Control structures //
+      //--------------------//
+      console.log("Control structures");
+
+      // 1. Write an if statement that prints the number of days in a month to the console (using 3 letter abbreviations).
+      var month = "dec";
+      // ... put if here ...
+      if (
+        month === "sep" ||
+        month === "apr" ||
+        month === "jun" ||
+        month === "nov"
+      ) {
+        console.log("30");
+      } else if (
+        month === "jan" ||
+        month === "mar" ||
+        month === "may" ||
+        month === "dec" ||
+        month === "jul" ||
+        month === "aug" ||
+        month === "oct"
+      ) {
+        console.log("31");
+      } else {
+        console.log("28, but on a leap year 29");
+      }
+      // 2. Write a loop to calculate 1+2+3+...+n and print it to the console.
+      var n = 50;
+      // ... put loop here ...
+      let resultNum = 0;
+      for (let i = 0; i <= n; i++) {
+        resultNum += i;
+      }
+      console.log(resultNum);
+      //-----------//
+      // Functions //
+      //-----------//
+      console.log("Functions");
+
+      // 1. Write a function to check if an array contains a specific number but is not at the start or the end.
+      function checkForNumber(arr, num) {
+        if (arr[0] === num || arr[arr.length - 1] === num) {
+          return false;
+        }
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i] === num) {
+            return true;
+          }
+        }
+        return false;
+      }
+      console.log("Checking for number: " + checkForNumber([4, 2, 5, 3], 4)); // should be false
+      console.log("Checking for number: " + checkForNumber([4, 2, 5, 3], 3)); // should be false
+      console.log("Checking for number: " + checkForNumber([4, 2, 5, 7, 3], 2)); // should be true
+      console.log(
+        "Checking for number: " + checkForNumber([4, 2, 5, 7, 3], 13)
+      ); // should be false
+      console.log("Checking for number: " + checkForNumber([4, 2, 5, 5], 5)); // should be false
+
+      //-------------------------------------------//
+      // Object-oriented programming in JavaScript //
+      //-------------------------------------------//
+      console.log("Object-oriented programming in JavaScript");
+
+      // 1. Add methods to the following object to calculate the circumference and area.
+
+      function Rectangle(width, height) {
+        this.width = width;
+        this.height = height;
+
+        this.getCircumference = function () {
+          return this.width * 2 + this.height * 2;
+        };
+        this.getArea = function () {
+          return this.width * this.height;
+        };
+      }
+
+      // ... add getCircumference and getArea methods ...
+      // HINT: use the prototype
+
+      var rectangle = new Rectangle(10, 5);
+      console.log(
+        "The circumference for the rectangle is " + rectangle.getCircumference()
+      );
+      console.log("The area for the rectangle is " + rectangle.getArea());
+
+      //---------------------//
+      // Debugging and tools //
+      //---------------------//
+
+      // None.
+
+      //-----------------------------------------------//
+      // Introduction to ECMAScript 6 and ECMAScript 7 //
+      //-----------------------------------------------//
+
+      // None.
+
+      //---------//
+      // Project //
+      //---------//
+
+      // Normally a bigger programming task follows at the end.
+      // We skip this in the first week.
+    </script>
+  </head>
+  <body>
+    See Console!
+  </body>
+</html>
