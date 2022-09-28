@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CMPS 260: Module 3 Homework</title>
+<style>* { font-family: monospace; }</style>
+<script>
+//--------------------------//
+// The stack data structure //
+//--------------------------//
+console.log("The stack data structure");
+
+// 1. Implement the stack data structure using the prototype (as opposed to the
+//    version we wrote in class).
+
+function Stack() {
+  
+  this.items = [];
+  
+}
+
+
+
+// methods
+Stack.prototype.push = function(item) {
+   return this.items.push(item);
+  }
+ Stack.prototype.pop = function pop() {
+return this.items.pop()
+  }
+Stack.prototype.deleteAll = function (){
+  return this.items = []
+}
+Stack.prototype.getLength = function () {
+  return this.items.length
+}
+// Method for question 3:
+
+Stack.prototype.whichElemIsLongest = function () {
+  
+  let leng = 0;
+  let longestWord = null;
+  for (let i = 0; i < this.items.length; i++) {
+  if (this.items[i].length > leng) {
+    leng = this.items[i].length
+    longestWord = this.items[i]
+  }
+  console.log(stack[i])
+  }
+  return longestWord
+}
+const stack = new Stack;
+// methods go here using Stack.prototype.
+
+// 2. Write a simple test program that shows your stack works.
+
+
+stack.push("Italy")
+stack.push("Ireland")
+stack.push("Wales")
+stack.push("Scotland")
+stack.push("England")
+stack.push("San Marino")
+stack.push("Ukraine")
+stack.push("Russia")
+stack.push("Kenya")
+stack.push("Uganda")
+stack.push("Japan")
+stack.push("India")
+stack.push("Liechtenstein")
+stack.push("Luxembourg")
+stack.push("Switzerland")
+stack.push("Nigeria")
+stack.push("Vatican City")
+stack.push("Finland")
+
+
+console.log(stack)
+console.log(stack.getLength())
+stack.pop()
+console.log(stack)
+
+// 3. Add a method to Stack that returns the largest value on the stack. Return
+//    null if there are no elements on the stack. Show that your method works.
+
+
+console.log(stack.whichElemIsLongest())
+// Below is a test for the "deleteAll()" method.
+stack.deleteAll()
+console.log(stack)
+
+//----------------------------------//
+// ECMAScript 6 and the Stack class //
+//----------------------------------//
+console.log("ECMAScript 6 and the Stack class");
+
+// Skip.
+
+
+
+//-------------------------------//
+// Solving problems using stacks //
+//-------------------------------//
+console.log("Solving problems using stacks");
+
+// See Project.
+
+
+
+//---------//
+// Project //
+//---------//
+console.log("Project");
+
+// 1. It is possible to use a stack to check if the number of parentheses in a
+//    string is balanced, meaning there are as many opening parentheses as
+//    closing ones. In addition, we can also make sure that each opening
+//    parenthesis precedes a closing parenthesis. Implement this algorithm.
+//    HINT: When encountering '(' push to the stack and when encountering ')'
+//    pop from the stack.
+/*
+function isBalanced(str) {
+  var stack = new Stack();
+  for (var i = 0; i < str.length; i++) {
+    var chr = str[i];
+   
+      stack.pop();
+    }
+  }
+  // we have to check to see there are no parentheses left on the stack
+  // if there are parentheses, it means they weren't closed
+  if (!stack.isEmpty()) {
+    return false;
+  }
+  return true;
+}
+*/
+// 2. Write a simple test program that shows your implementation works.
+
+
+
+
+
+</script>
+</head>
+<body>
+  See console!
+</body>
+</html>
