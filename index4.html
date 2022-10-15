@@ -45,6 +45,22 @@ Queue.prototype.getMin = function() {
 return minItems
 }
 
+  //Queues were a good start. Something like this.
+  Queue.prototype.dequeue = function() {
+  return this.items.shift();
+  };
+
+  Queue.prototype.front = function() {
+    return this.items[0];
+  };
+
+  Queue.prototype.isEmpty = function() {
+    return this.items.length === 0;
+  };
+
+  Queue.prototype.size = function() {
+    return this.items.length;
+  };
 
 // methods go here using Queue.prototype.
 
