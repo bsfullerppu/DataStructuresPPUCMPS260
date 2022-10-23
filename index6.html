@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CMPS 260: Module 6 Class</title>
+<style>* { font-family: monospace; }</style>
+<script>
+  "use strict";
+//-----------------------//
+// Structuring a dataset //
+//-----------------------//
+console.log("Structuring a dataset");
+
+// Skip.
+
+
+
+//----------------//
+// Creating a set //
+//----------------//
+console.log("Creating a set");
+
+// 1. Finish the implemention of the set data structure below. Note that this
+//    implementation does not use the prototype (see homework).
+
+function Set() {
+  this.items = {}; // note that this is an object instead of an array
+
+  }
+  Set.prototype.add = function(value) {
+  if (!this.has(value)) {
+    this.items[value] = value;
+    return true;
+  }
+  return false;
+};
+
+Set.prototype.delete = function(value) {
+  if (this.has(value)) {
+    delete this.items[value];
+    return true;
+  }
+  return false;
+};
+
+Set.prototype.has = function(value) {
+  return this.items.hasOwnProperty(value);
+};
+
+Set.prototype.clear = function() {
+  this.items = {};
+};
+
+Set.prototype.size = function() {
+  return Object.keys(this.items).length;
+};
+
+Set.prototype.values = function() {
+  var values = [];
+  for (var key in this.items) {
+    values.push(this.items[key]);
+  }
+  return values;
+};
+
+Set.prototype.union = function(otherSet) {
+  var resultSet = new Set();
+  var values = this.values();
+  for (var i = 0; i < values.length; i++) {
+    resultSet.add(values[i]);
+  }
+  values = otherSet.values();
+  for (var i = 0; i < values.length; i++) {
+    resultSet.add(values[i]);
+  }
+  return resultSet;
+};
+
+Set.prototype.intersection = function(otherSet) {
+  var resultSet = new Set();
+  var values = this.values();
+  for (var i = 0; i < values.length; i++) {
+    if (otherSet.has(values[i])) {
+      resultSet.add(values[i]);
+    }
+  }
+  return resultSet;
+};
+
+Set.prototype.difference = function(otherSet) {
+  var resultSet = new Set();
+  var values = this.values();
+  for (var i = 0; i < values.length; i++) {
+    if (!otherSet.has(values[i])) {
+      resultSet.add(values[i]);
+    }
+  }
+  return resultSet;
+};
+
+Set.prototype.subset = function(otherSet) {
+  if (this.size() > otherSet.size()) {
+    return false;
+  }
+  else {
+    var values = this.values();
+    for (var i = 0; i < values.length; i++) {
+      if (!otherSet.has(values[i])) {
+        return false;
+      }
+    }
+    return true;
+  }
+}
+
+var set = new Set()
+set.add(1)
+console.log(set.values())
+console.log(set.has(1))
+console.log(set.size())
+set.add(2)
+console.log(set.values())
+console.log(set.has(2))
+console.log(set.size())
+//----------------//
+// Set operations //
+//----------------//
+console.log("Set operations");
+
+// 1. Implement the union set function.
+
+
+let ilSet = new Set()
+ilSet.add(1)
+ilSet.add(2)
+ilSet.add(3)
+ilSet.add(4)
+let laSet = new Set()
+laSet.add(1)
+laSet.add(2)
+laSet.add(5)
+laSet.add(6)
+console.log(ilSet.values())
+let setUnion = ilSet.union(laSet)
+console.log(setUnion)
+// 2. Implement the intersection set function.
+let setItersection = ilSet.intersection(laSet)
+console.log(setItersection)
+// 3. Implement the set difference function.
+let setDifference = ilSet.difference(laSet)
+console.log(setDifference)
+// 4. Implement the subset function.
+let setSubset = ilSet.subset(laSet)
+console.log(laSet)
+
+
+//---------------------//
+// ES6 – the Set class //
+//---------------------//
+console.log("ES6 – the Set class");
+
+// Skip.
+
+
+
+//---------//
+// Project //
+//---------//
+console.log("Project");
+
+// 1. Write a function that takes two sets as input and returns true if
+//    they have the same elements, and false otherwise. Test your code.
+
+function isEqual(set1, set2) {
+  // ...
+}
+
+// 2. Create a new stack and push the numbers 1, 2, 3, 4, and 5 onto it. Then
+//    create a new set and pop all the elements off the stack and add them to
+//    the set. Show your program works.
+
+// 3. Get all the items from the set and push them back onto the stack. Show
+//    that your program works.
+
+
+
+</script>
+</head>
+<body>
+  See console!
+</body>
+</html>
