@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CMPS 260: Module 8 Homework</title>
+<style>* { font-family: monospace; }</style>
+<script>
+//--------------//
+// Dictionaries //
+//--------------//
+console.log("Dictionaries");
+
+// 1. Implement the dictionary data structure using the prototype (as opposed
+//    to the version we wrote in class).
+
+function Dictionary() {
+  this.items = {};
+}
+
+// ...
+Dictionary.prototype.has = function (key) {
+return key in this.items
+}
+Dictionary.prototype.set = function (key, value) {
+  this.items[key] = value
+}
+Dictionary.prototype.delete = function (key) {
+  if (this.has(key)) {
+    delete this.items[key]
+    return true
+  }
+  return false
+}
+Dictionary.prototype.get = function (key) {
+  return this.has(key) ? items[key] : undefined
+}
+Dictionary.prototype.values = function () {
+  var values = []
+  for (var k in this.items) {
+    if (this.has(k)) {
+      values.push(this.items[k])
+    }
+  }
+  return values
+}
+Dictionary.prototype.clear = function() {
+  this.items = {};
+};
+Dictionary.prototype.size = function() {
+  return Object.keys(this.items).length;
+};
+Dictionary.prototype.keys = function() {
+  return Object.keys(this.items)
+}
+Dictionary.prototype.getItems = function() {
+  return this.items
+}
+// 2. Run some tests that show that your code works.
+let langsOfBritAndIre = new Dictionary()
+langsOfBritAndIre.set("English", "Germanic")
+langsOfBritAndIre.set("Scots", "Germanic")
+langsOfBritAndIre.set("Welsh", "Celtic")
+langsOfBritAndIre.set("Irish", "Celtic")
+langsOfBritAndIre.set("Scottish", "Celtic")
+langsOfBritAndIre.set("Manx", "Celtic")
+console.log(langsOfBritAndIre.size())
+console.log(langsOfBritAndIre.has("Irish"))
+console.log(langsOfBritAndIre.has("Italian"))
+langsOfBritAndIre.clear()
+console.log(langsOfBritAndIre.size())
+//----------------//
+// The hash table //
+//----------------//
+console.log("The hash table");
+
+// 1. Implement the hash table data structure using the prototype (as opposed
+//    to the version we wrote in class). Use separate chaining to resolve
+//    collisions and the djb2 hash function for hashing.
+function HashTable() {
+  this.table = []
+}
+var loseloseHashCode = function (key) {
+  var hash = 0
+  for (var i = 0; i < key.length; i++) {
+    hash += key.charCodeAt(i)
+  }
+  return hash % 37
+}
+HashTable.prototype.put = function (key, value) {
+  let position = loseloseHashCode(key)
+  console.log(position + " - " + key)
+  this.table[position] = value
+}
+HashTable.prototype.get = function (key) {
+  return this.table[loseloseHashCode(key)]
+}
+HashTable.prototype.remove = function (key) {
+  this.table[loseloseHashCode (key)] = undefined
+}
+let mythology = new HashTable()
+// 2. Run some tests that show that your code works.
+mythology.put("Roman", "Jupiter Optimus Maximus")
+mythology.put("Greek", "Zeus")
+mythology.put("Celtic", "The Dagda")
+mythology.put("Norse", "Odin")
+mythology.put("Egyptian", "Amon")
+console.log(mythology.get("Roman"))
+mythology.remove("Greek")
+console.log(mythology.get("Greek"))
+// 3. The book discusses linear probing but their approach has a serious
+//    problem. What is the issue?
+//    HINT: The issue can occur when there is a hash collision (two values
+//          mapped to the same index) in combination with a delete operation.
+/*
+Linear probing is the way a value is added if there exists a value with that index. What you do
+is add 1 to the index. This, however, creates a problem because there may be a value
+with the index of the duplicate plus one. That typically isn't a problem, but say
+you have a hash table with a vast amount of values. In that case the program may have to run many
+times to store that value, and that takes time. Another thing is that linear probing may have to be
+done so many times that you run out of array indices. This isn't a problem in JavaScript, because
+you do not have a finite amount of array indices. However, in some languages you must
+hard code the maximum number of array indices available, and that presents a problem.
+*/
+
+//-------------------//
+// The ES6 Map class //
+//-------------------//
+console.log("The ES6 Map class");
+
+// Skip.
+
+
+
+//-------------------------------------//
+// The ES6 WeakMap and WeakSet classes //
+//-------------------------------------//
+console.log("The ES6 WeakMap and WeakSet classes");
+
+// Skip.
+
+
+
+//---------//
+// Project //
+//---------//
+console.log("Project");
+
+// 1. Complete the method below that adds all key-value pairs from one
+//    dictionary into another. See also the example below.
+
+Dictionary.prototype.merge = function(dict) {
+  // add all key-value pairs in 'dict' to 'this'
+};
+
+// Test your code by uncommenting these lines:
+//var dict1 = new Dictionary();
+//dict1.set("key1", "val1");
+//dict1.set("key2", "val2");
+//dict1.set("key3", "val3");
+//var dict2 = new Dictionary();
+//dict2.set("key3", "val3b");
+//dict2.set("key4", "val4");
+//dict1.merge(dict2);
+//dict1.print(); // should contain key1-val1, key2-val2, key3-val3b, key4-val4
+
+
+
+</script>
+</head>
+<body>
+  See console!
+</body>
+</html>
