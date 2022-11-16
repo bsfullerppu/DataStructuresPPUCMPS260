@@ -1,0 +1,224 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CMPS 260: Module 10 Homework</title>
+<style>* { font-family: monospace; }</style>
+<script>
+
+
+//-----------------------------//
+// Minimum spanning tree (MST) //
+//-----------------------------//
+console.log("Minimum spanning tree (MST)");
+function Dictionary() {
+  this.items = {};
+}
+  Dictionary.prototype.has = function (key) {
+return key in this.items
+}
+Dictionary.prototype.set = function (key, value) {
+  this.items[key] = value
+}
+Dictionary.prototype.delete = function (key) {
+  if (this.has(key)) {
+    delete this.items[key]
+    return true
+  }
+  return false
+}
+Dictionary.prototype.get = function (key) {
+  return this.has(key) ? this.items[key] : undefined
+}
+Dictionary.prototype.values = function () {
+  var values = []
+  for (var k in this.items) {
+    if (this.has(k)) {
+      values.push(this.items[k])
+    }
+  }
+  return values
+}
+Dictionary.prototype.clear = function() {
+  this.items = {};
+};
+Dictionary.prototype.size = function() {
+  return Object.keys(this.items).length;
+};
+Dictionary.prototype.keys = function() {
+  return Object.keys(this.items)
+}
+Dictionary.prototype.getItems = function() {
+  return this.items
+}
+
+function Queue() {
+  this.items = []
+  Queue.prototype.enqueue = function(elt){
+    this.items.push(elt)
+  }
+  Queue.prototype.dequeue = function(elt){
+    this.items.shift()
+  }
+  Queue.prototype.front = function() {
+    return this.items[0]
+  }
+  Queue.prototype.isEmpty = function() {
+    return this.items.length === 0
+  }
+  Queue.prototype.size = function() {
+    return this.items.length
+  }
+  Queue.prototype.print = function() {
+    console.log(this.items.toString())
+  }
+}
+
+
+function Graph() {
+  var vertices = []
+  var adjList = new Dictionary()
+
+  this.addVertex = function(v) {
+    vertices.push(v)
+  adjList.set(v, [])
+  }
+  this.addEdge = function(v, w) {
+    adjList.get(v).push(w)
+    adjList.get(w).push(v)
+  }
+  this.toString = function() {
+    var s = ""
+    for (var i = 0; i < vertices.length; i++) {
+      s += vertices[i] + " -> "
+      var neighbors = adjList.get(vertices[i])
+      for (var j = 0; j < neighbors.length; j++) {
+        s += neighbors[j] + " "
+      } 
+      s += "\n"
+    }
+    return s
+  }
+  var initializeColor = function() {
+    var color = {}
+    for (var i = 0; i < vertices.length; i++) {
+     color[vertices[i]] = "white"
+    }
+    return color
+  }
+  this.bfs = function(v, callback) {
+    var color = initializeColor()
+    var queue = new Queue()
+    queue.enqueue(v)
+    while (!queue.isEmpty()) {
+      var u = queue.dequeue()
+      var neighbors = adjList.get(u)
+      color[u] = "grey"
+      for(var i = 0; i < neighbors.length; i++) {
+        var w = neighbors[i]
+        if (color[w] === "white") {
+          color[w] = "grey"
+          queue.enqueue(w)
+        }
+      }
+      color[u] = "black"
+      if(callback) {
+        callback(u)
+      }
+    }
+  }
+  var dfsVisit = function(u,color,callback) {
+    color[u] = "grey"
+    if(callback) {
+      callback(u)
+    }
+    var neighbors = adjList.get(u)
+    for (var i = 0; i < neighbors.length; i++) {
+      var w = neighbors[i]
+      if (color[w] === "white") {
+        dfsVisit(w,color,callback)
+      }
+    }
+    color[u] = "black"
+  }
+  this.dfs = function(callback) {
+    var color = initializeColor()
+    for(var i = 0; i < vertices.length; i++) {
+      if(color[vertices[i]] === "white") {
+        dfsVisit(vertices[i], color, callback)
+      }
+    }
+  }
+  this.prim = function() {
+    var parent = [], key = [], visited = [];
+    length = this.length, i;
+    for (i = 0; i < length; i++) {
+      key[i] = Number.MAX_SAFE_INTEGER;
+      visited[i] = false
+    }
+    key[0] = 0
+    parent[0] = -1
+    for (i = 0; i < length-1; i++) {
+      var u = minKey(key, visited)
+      visited[u] = true
+      for (var v = 0; v < length; v++) {
+        if(this.graph[u][v] &&  visited[v] == false && this.graph[u][v] < key[v]) {
+          parent[v] = key[v] = this.graph[u][v]
+        }
+      }
+    }
+    return parent
+  }
+}
+var ieGraph = new Graph()
+var myieLanguageVertices = ['Romance', 'Germanic', 'Celtic', 'Indo-Iranian', 'Hellenic', 'Balto-Slavic', 'Armenian Family',
+'Italian', 'Irish', 'Scottish Gaelic', 'Welsh', 'Breton', 'Cornish', 'German', 'Greek',
+'Armenian', 'Russian', 'Ukrainian', 'Belorusian', 'French', 'Spanish', 'Hindi', 'Farsi']
+for (var i = 0; i < myieLanguageVertices.length; i++) {
+  ieGraph.addVertex(myieLanguageVertices[i])
+}
+
+ieGraph.addEdge('Romance', 'Italian')
+ieGraph.addEdge('Romance', 'French')
+ieGraph.addEdge('Romance', 'Spanish')
+ieGraph.addEdge('Germanic', 'German')
+ieGraph.addEdge('Celtic', 'Irish')
+ieGraph.addEdge('Celtic', 'Scottish Gaelic')
+ieGraph.addEdge('Celtic', 'Welsh')
+ieGraph.addEdge('Celtic', 'Breton')
+ieGraph.addEdge('Celtic', 'Cornish')
+ieGraph.addEdge('Hellenic', 'Greek')
+ieGraph.addEdge('Armenian Family', 'Armenian')
+ieGraph.addEdge('Balto-Slavic', 'Russian')
+ieGraph.addEdge('Balto-Slavic', 'Ukrainian')
+ieGraph.addEdge('Balto-Slavic', 'Belorusian')
+ieGraph.addEdge('Indo-Iranian', 'Hindi')
+ieGraph.addEdge('Indo-Iranian', 'Farsi')
+console.log(ieGraph.toString())
+// 1. Implement Prim's algorithm (use code from class and the book).
+console.log(ieGraph.prim())
+// 2. Show that your code works using the example from the book in the minimum
+//    spanning tree section. Print both the edges and the weights that are part
+//    of the minimum spanning tree.
+var testGraph = new Graph()
+var testValues = [[0, 2, 4, 0, 0, 0], [2, 0, 2, 4, 2, 0], [4, 2, 0, 3, 2], [0, 2, 3, 3 ,0, 2], [0, 0, 0, 2, 2, 0]]
+for (let i = 0; i < testValues.length; i++) {
+  testGraph.addVertex(testValues[i])
+}
+console.log(testGraph.prim())
+
+//---------//
+// Project //
+//---------//
+console.log("Project");
+
+// Skip.
+
+
+
+</script>
+</head>
+<body>
+  See console!
+</body>
+</html>
