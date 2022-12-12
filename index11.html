@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CMPS 260: Module 11 Homework</title>
+<style>* { font-family: monospace; }</style>
+<script>
+//------------------------//
+// The sorting algorithms //
+//------------------------//
+console.log("The sorting algorithms");
+
+// 1. Implement ArrayList using the prototype.
+function ArrayList() {
+  this.array = []
+}
+ArrayList.prototype.insert = function(item) {
+  this.array.push(item)
+}
+ArrayList.prototype.toString = function() {
+  return this.array.join()
+}
+
+
+// 2. Complete the createNonSortedRandomArray(size) below by returning an
+//    ArrayList with the numbers 1, 2, ..., size in random order.
+//    NOTE: there are multiple ways to achieve this.
+function createNonSortedRandomArray(size) {
+  
+  let arr = []
+
+let arrList = new ArrayList()
+ for (let i = 1; i <= size; i++) {
+  arr.push(i)
+  } for (let i = 0; i < size; i++) {
+    let randIndex = Math.floor(Math.random(arr.length))
+    let elem = arr[randIndex]
+    arr.splice(randIndex, 1)
+   arrList.insert(elem)
+  }
+ 
+return arrList
+}
+
+let arrList = createNonSortedRandomArray(5)
+
+console.log(arrList.toString())
+
+// 3. Implement the Quick Sort algorithm and test your code with the function
+//    you wrote for (2).
+ArrayList.prototype.quickSort = function() {
+function quick(array, left, right) {
+  let index;
+  if(array.length > 1) {
+    index = partition(array, left, right) 
+    if (left < index - 1){
+quick(array, left, index - 1)
+    } if (index < right) {
+      quick(array, index, right)
+    }
+  }
+} function partition(array, left, right) {
+  let pivot = array[Math.floor((right + left) / 2)]
+  let i = left
+  let j = right
+  while (array[i] < pivot) {
+    i++
+  } while (array[j] > pivot) {
+    j--
+  } if(i <= j) {
+    swap(array, i, j)
+    i++
+    j--
+  }
+  return i
+}
+function swap (array, index1, index2) {
+  let aux = array[index1]
+  array[index1] = array[index2]
+  array[index2] = aux
+}
+quick(this.array, 0, this.array.length - 1)
+}
+arrList.quickSort()
+console.log(arrList.toString())
+  
+ 
+
+//----------------------//
+// Searching algorithms //
+//----------------------//
+console.log("Searching algorithms");
+
+// 1. Implement the binary search algorithm and test your code.
+binarySearch = function(array, target){
+ let startIndex = 0
+ let endIndex = array.length - 1
+ while (startIndex <= endIndex) {
+  let middleIndex = Math.floor((startIndex + endIndex) / 2)
+  if (target === array[middleIndex]) {
+    
+    console.log("Target found!")
+    break
+    
+  } 
+  else if (target > array[middleIndex]) {
+    console.log("Searching the right side...")
+    startIndex = middleIndex + 1
+  
+  } 
+  else if (target < array[middleIndex]) {
+    console.log("Searching the left side...")
+    endIndex = middleIndex - 1
+    
+  } else {
+    console.log("Target not found in the current search.")
+    break
+  }
+ }
+ console.log("The target given is not in the array.")
+}
+let testArr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+binarySearch(testArr, 3)
+
+
+//---------//
+// Project //
+//---------//
+console.log("Project");
+
+// The following set of steps come from an earlier homework.
+
+// The following text is from the all the Amendments in the Bill of Rights.
+
+// First we make the text lower case.
+
+// Then we remove punctuation by using a regular expression.
+
+// And store the words into an array.
+
+// 1. Use sorting and searching to find out whether the word 'president'
+//    appears in the amendments. You should use the code you wrote above.
+
+
+//words.quickSort();
+
+// 2. Use sorting and searching to find out whether the word 'state' appears
+//    in the amendments. You should use the code you wrote above.
+
+
+// 3. Use sorting and searching to find out whether the word 'country' appears
+//    in the amendments. You should use the code you wrote above.
+
+
+
+
+</script>
+</head>
+<body>
+  See console!
+</body>
+</html>
